@@ -21,7 +21,7 @@ def process_spot_webhook(webhook_data):
         return {"status": "error", "message": str(e)}
 
 @shared_task
-def process_spot_future(webhook_data):
+def process_future_webhook(webhook_data):
     try:
         logger.info(f"Starting processing future webhook: {json.dumps(webhook_data, indent=2)}")
         time.sleep(10)  # Имитация обработки
