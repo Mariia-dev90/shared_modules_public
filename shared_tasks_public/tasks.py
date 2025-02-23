@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @shared_task
 def process_spot_webhook(webhook_data):
     try:
-        logger.info(f"Processing spot webhook: {json.dumps(webhook_data, indent=2)}")
+        logger.info(f"Spot webhook: {json.dumps(webhook_data, indent=2)}")
         # time.sleep(10)  # Имитация обработки
         # logger.info(f"Finished processing spot webhook: {json.dumps(webhook_data, indent=2)}")
         return {"status": "processed", "data": webhook_data}
@@ -23,7 +23,7 @@ def process_spot_webhook(webhook_data):
 @shared_task
 def process_future_webhook(webhook_data):
     try:
-        logger.info(f"Processing future webhook: {json.dumps(webhook_data, indent=2)}")
+        logger.info(f"Future webhook: {json.dumps(webhook_data, indent=2)}")
         # time.sleep(10)  # Имитация обработки
         # logger.info(f"Finished processing future webhook: {json.dumps(webhook_data, indent=2)}")
         return {"status": "processed", "data": webhook_data}
