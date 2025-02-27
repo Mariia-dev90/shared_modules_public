@@ -51,31 +51,40 @@ def execute_spot_order(order_data):
         # Инициализация клиента Pybit для работы с Bybit
         client = HTTP(testnet=False, api_key=api_key, api_secret=api_secret)
 
-        # Открытие ордера
-        if side == 'buy':
-            order = client.place_order(
-                symbol=symbol,
-                side='Buy',
-                order_type='Market',
-                qty=quantity,
-                time_in_force='GoodTillCancel'
-            )
-        elif side == 'sell':
-            order = client.place_order(
-                symbol=symbol,
-                side='Sell',
-                order_type='Market',
-                qty=quantity,
-                time_in_force='GoodTillCancel'
-            )
-        else:
-            raise ValueError(f"Invalid side: {side}. Must be 'buy' or 'sell'")
+        logger.info(f"Placing order with parameters: symbol={symbol}, side={side}, qty={quantity}")
 
-        # Логирование результата
-        if order['ret_code'] == 0:
-            logger.info(f"Spot Order placed successfully: {order['result']}")
-        else:
-            logger.error(f"Failed to place spot order: {order['ret_msg']}")
+        # Открытие ордера
+        try:
+            # Проверка стороны ордера и выполнение соответствующего запроса
+            if side == 'buy':
+                order = client.place_order(
+                    symbol=symbol,
+                    side='Buy',
+                    order_type='Market',
+                    qty=quantity,
+                    time_in_force='GoodTillCancel'
+                )
+            elif side == 'sell':
+                order = client.place_order(
+                    symbol=symbol,
+                    side='Sell',
+                    order_type='Market',
+                    qty=quantity,
+                    time_in_force='GoodTillCancel'
+                )
+            else:
+                raise ValueError(f"Invalid side: {side}. Must be 'buy' or 'sell'")
+
+            # Логирование результата выполнения ордера
+            if order['ret_code'] == 0:
+                logger.info(f"Spot Order placed successfully: {order['result']}")
+            else:
+                logger.error(f"Failed to place spot order: {order['ret_msg']}")
+
+        except ValueError as ve:
+            logger.error(f"Invalid input value: {ve}")
+        except Exception as e:
+            logger.error(f"An error occurred while placing the spot order: {e}")
 
     except Exception as e:
         logger.error(f"Error executing spot order: {e}")
