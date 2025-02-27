@@ -19,7 +19,7 @@ def process_spot_webhook(webhook_data):
         logger.info(f"Spot webhook: {json.dumps(webhook_data, indent=2)}")
 
         # Отправляем данные в очередь для исполнения ордера
-        execute_spot_order.apply_async(args=[webhook_data], queue='BybitSpot1')
+        execute_spot_order.apply_async(args=[webhook_data], queue='BybitSpot1', routing_key='BybitSpot1')
 
         return {"status": "processed", "data": webhook_data}
     except Exception as e:
