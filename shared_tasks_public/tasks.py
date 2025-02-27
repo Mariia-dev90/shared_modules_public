@@ -35,8 +35,11 @@ def execute_spot_order(order_data):
 
         # Получаем данные из order_data
         symbol = order_data.get('symbol')
+        logger.info(f"Spot Order order_data.get('symbol'): {symbol}")
         side = order_data.get('side')
-        quantity = order_data.get('quantity')
+        logger.info(f"Spot Order order_data.get('side'): {side}")
+        quantity = order_data.get('amount')
+        logger.info(f"Spot Orderorder_data.get('amount')): {quantity}")
 
         # Извлекаем API-ключи
         api_key = order_data.get('api_key')
@@ -108,7 +111,7 @@ def execute_future_order(order_data):
         # Получаем данные из order_data
         symbol = order_data.get('symbol')
         side = order_data.get('side')
-        quantity = order_data.get('quantity')
+        quantity = order_data.get('amount')
         price = order_data.get('price')
         leverage = order_data.get('leverage')
 
