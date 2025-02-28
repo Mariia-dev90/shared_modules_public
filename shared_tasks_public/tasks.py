@@ -10,19 +10,17 @@ import time
 logger = logging.getLogger(__name__)
 
 
-
 @shared_task
 def process_spot_webhook(webhook_data):
     try:
-
         # Логирование полученных данных
-        logger.info(f"Spot webhook: {json.dumps(webhook_data, indent=2)}
+        logger.info(f"Spot webhook received: {json.dumps(webhook_data, indent=2)}")
 
         return {"status": "processed", "data": webhook_data}
+
     except Exception as e:
         logger.error(f"Error processing spot webhook: {e}")
         return {"status": "error", "message": str(e)}
-
 
 @shared_task
 def execute_spot_order(order_data):
